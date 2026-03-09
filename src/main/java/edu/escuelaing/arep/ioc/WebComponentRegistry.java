@@ -2,6 +2,7 @@ package edu.escuelaing.arep.ioc;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class WebComponentRegistry {
@@ -13,9 +14,27 @@ public class WebComponentRegistry {
 
     public static void registerControllerClass(String controllerClassName) throws Exception {
         Class<?> controllerClass = Class.forName(controllerClassName);
+        registerControllerClass(controllerClass);
+    }
 
+    public static int registerControllersInPackage(String basePackage) throws Exception {
+        List<String> classNames = ClassPathScanner.findClassNames(basePackage);
+        int controllersCount = 0;
+
+        for (String className : classNames) {
+            Class<?> candidate = Class.forName(className);
+            if (candidate.isAnnotationPresent(RestController.class)) {
+                registerControllerClass(candidate);
+                controllersCount++;
+            }
+        }
+
+        return controllersCount;
+    }
+
+    private static void registerControllerClass(Class<?> controllerClass) throws Exception {
         if (!controllerClass.isAnnotationPresent(RestController.class)) {
-            throw new IllegalArgumentException("Class is not annotated with @RestController: " + controllerClassName);
+            throw new IllegalArgumentException("Class is not annotated with @RestController: " + controllerClass.getName());
         }
 
         Object controllerInstance = controllerClass.getDeclaredConstructor().newInstance();
@@ -30,6 +49,9 @@ public class WebComponentRegistry {
                 }
 
                 String path = method.getAnnotation(GetMapping.class).value();
+                if (routes.containsKey(path)) {
+                    throw new IllegalArgumentException("Duplicated @GetMapping path detected: " + path);
+                }
                 routes.put(path, new RouteDefinition(controllerInstance, method));
             }
         }
@@ -57,4 +79,3 @@ public class WebComponentRegistry {
         }
     }
 }
-

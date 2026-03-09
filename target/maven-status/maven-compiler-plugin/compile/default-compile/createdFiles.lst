@@ -4,6 +4,7 @@ edu\escuelaing\arep\ioc\RequestParam.class
 edu\escuelaing\arep\ioc\WebComponentRegistry$RouteDefinition.class
 edu\escuelaing\arep\ioc\Response.class
 edu\escuelaing\arep\ioc\RestController.class
+edu\escuelaing\arep\ioc\ClassPathScanner.class
 edu\escuelaing\arep\ioc\FirstWebService.class
 edu\escuelaing\arep\ioc\Request.class
 edu\escuelaing\arep\ioc\WebComponentRegistry.class
