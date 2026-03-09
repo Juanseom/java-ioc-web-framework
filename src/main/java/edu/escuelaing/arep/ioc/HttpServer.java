@@ -82,7 +82,10 @@ public class HttpServer {
         try {
             Request req = new Request("GET", path, queryString);
             Response res = new Response();
-            String body = (String) route.getMethod().invoke(route.getInstance());
+
+            Object[] methodArgs = buildMethodArguments(route.getMethod(), req);
+            String body = (String) route.getMethod().invoke(route.getInstance(), methodArgs);
+
             if (body == null) {
                 body = "";
             }
@@ -92,6 +95,38 @@ public class HttpServer {
             writeTextResponse(out, 500, "Internal Server Error");
         }
         return true;
+    }
+
+    private static Object[] buildMethodArguments(java.lang.reflect.Method method, Request req) {
+        java.lang.reflect.Parameter[] parameters = method.getParameters();
+        Object[] args = new Object[parameters.length];
+
+        for (int i = 0; i < parameters.length; i++) {
+            java.lang.reflect.Parameter parameter = parameters[i];
+
+            if (!parameter.isAnnotationPresent(RequestParam.class)) {
+                args[i] = null;
+                continue;
+            }
+
+            RequestParam annotation = parameter.getAnnotation(RequestParam.class);
+            String paramName = annotation.value();
+            String defaultValue = annotation.defaultValue();
+
+            String paramValue = req.getValue(paramName);
+
+            if (paramValue == null || paramValue.isEmpty()) {
+                if (!defaultValue.isEmpty()) {
+                    paramValue = defaultValue;
+                } else {
+                    paramValue = "";
+                }
+            }
+
+            args[i] = paramValue;
+        }
+
+        return args;
     }
 
     private static void handleStaticFile(String path, OutputStream out) throws IOException {

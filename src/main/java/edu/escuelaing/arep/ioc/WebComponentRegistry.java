@@ -44,9 +44,6 @@ public class WebComponentRegistry {
                 if (!method.getReturnType().equals(String.class)) {
                     throw new IllegalArgumentException("Only String return type is supported for @GetMapping methods: " + method.getName());
                 }
-                if (method.getParameterCount() > 0) {
-                    throw new IllegalArgumentException("Parameters are not supported yet in this version: " + method.getName());
-                }
 
                 String path = method.getAnnotation(GetMapping.class).value();
                 if (routes.containsKey(path)) {

@@ -1,11 +1,12 @@
 edu\escuelaing\arep\ioc\GetMapping.class
 edu\escuelaing\arep\ioc\HttpServer.class
+edu\escuelaing\arep\ioc\GreetingController.class
 edu\escuelaing\arep\ioc\RequestParam.class
-edu\escuelaing\arep\ioc\WebComponentRegistry$RouteDefinition.class
-edu\escuelaing\arep\ioc\Response.class
 edu\escuelaing\arep\ioc\RestController.class
-edu\escuelaing\arep\ioc\ClassPathScanner.class
 edu\escuelaing\arep\ioc\FirstWebService.class
 edu\escuelaing\arep\ioc\Request.class
 edu\escuelaing\arep\ioc\WebComponentRegistry.class
+edu\escuelaing\arep\ioc\WebComponentRegistry$RouteDefinition.class
+edu\escuelaing\arep\ioc\Response.class
+edu\escuelaing\arep\ioc\ClassPathScanner.class
 edu\escuelaing\arep\ioc\MicroSpringBoot.class
