@@ -305,7 +305,7 @@ The rubric asks for evidence of running the server on AWS. The simplest approach
 
 ### 1) Create instance
 
-- Suggested type: Ubuntu `t2.micro`.
+- Suggested type: Amazon Linux `t2.micro`.
 - Security Group:
   - `22` (SSH) from your IP.
   - `8080` (Custom TCP) from `0.0.0.0/0` for demo.
@@ -313,7 +313,7 @@ The rubric asks for evidence of running the server on AWS. The simplest approach
 ### 2) Connect via SSH
 
 ```bash
-ssh -i <your-key.pem> ubuntu@<EC2_PUBLIC_IP>
+ssh -i <your-key.pem> Amazon@<EC2_PUBLIC_IP>
 ```
 
 ### 3) Install dependencies
@@ -339,7 +339,7 @@ java -cp target/classes edu.escuelaing.arep.ioc.MicroSpringBoot edu.escuelaing.a
 - `http://<EC2_PUBLIC_IP>:8080/`
 - `http://<EC2_PUBLIC_IP>:8080/greeting?name=AWS`
 
-### 6) Evidence placeholders
+### 6) Evidence
 
 #### EC2 instance running
 
@@ -352,6 +352,9 @@ java -cp target/classes edu.escuelaing.arep.ioc.MicroSpringBoot edu.escuelaing.a
 #### EC2 terminal with server running
 
 ![EC2 terminal server running](images/aws-terminal-server-running.png)
+
+![EC2 terminal server running 1](images/aws-terminal-server-running1.png)
+
 
 #### Browser consuming endpoints
 
